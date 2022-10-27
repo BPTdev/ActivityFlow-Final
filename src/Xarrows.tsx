@@ -91,7 +91,7 @@ const ConnectPointsWrapper = ({
           const { offsetTop, offsetLeft }: { offsetLeft: any; offsetTop: any } =
             boxRef.current;
           let dragRefValue;
-          if (dragRef.current.) {
+          if (dragRef.current) {
             dragRefValue = dragRef.current.state;
           }
           const { x, y } = dragRefValue;
