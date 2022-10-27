@@ -7,15 +7,24 @@ import "./styles.css";
 enum arrowsPath {
   Grid = "grid",
   Smooth = "smooth",
-  Straight = "straight"
+  Straight = "straight",
 }
-
+interface connectPointStyleInt {
+  position: string;
+  top: number;
+  right: number;
+  width: number;
+  height: number;
+  background: string;
+}
 //Style for the connector
-const connectPointStyle = {
+const connectPointStyle: connectPointStyleInt = {
   position: "absolute",
+  top: 0,
+  right: 0,
   width: 15,
   height: 15,
-  background: "black"
+  background: "black",
 };
 //cards data
 export interface Card {
@@ -47,17 +56,8 @@ export const cardsData: Card[] = [
   { id: 7, title: "Carte 5", completionLevel: 10 },
   { id: 8, color: "#50BFD5", title: "Carte 6.1", completionLevel: 25 },
   { id: 9, color: "#FFE527", title: "Carte 6.2", completionLevel: 0 },
-  { id: 10, color: "#e51c23", title: "Carte de fin", completionLevel: 0 }
+  { id: 10, color: "#e51c23", title: "Carte de fin", completionLevel: 0 },
 ];
-//Position of the connector
-interface TopRight {
-  right: number;
-  top: number;
-}
-const topRight: TopRight = {
-  right: 0,
-  top: 0
-};
 
 interface ConnectPointsWrapperProps {
   boxId: string;
@@ -67,7 +67,7 @@ interface ConnectPointsWrapperProps {
 const ConnectPointsWrapper = ({
   boxId,
   dragRef,
-  boxRef
+  boxRef,
 }: ConnectPointsWrapperProps) => {
   const ref1 = useRef();
 
@@ -79,8 +79,7 @@ const ConnectPointsWrapper = ({
         className="connectPoint"
         style={{
           ...connectPointStyle,
-          ...topRight,
-          ...position
+          ...position,
         }}
         draggable
         onMouseDown={(e) => e.stopPropagation()}
@@ -89,12 +88,10 @@ const ConnectPointsWrapper = ({
           e.dataTransfer.setData("arrow", boxId);
         }}
         onDrag={(e) => {
-          const {
-            offsetTop,
-            offsetLeft
-          }: { offsetLeft: any; offsetTop: any } = boxRef.current;
+          const { offsetTop, offsetLeft }: { offsetLeft: any; offsetTop: any } =
+            boxRef.current;
           let dragRefValue;
-          if (dragRef.current) {
+          if (dragRef.current.) {
             dragRefValue = dragRef.current.state;
           }
           const { x, y } = dragRefValue;
@@ -103,7 +100,7 @@ const ConnectPointsWrapper = ({
             left: e.clientX - x - offsetLeft,
             top: e.clientY - y - offsetTop,
             transform: "none",
-            opacity: 0
+            opacity: 0,
           });
         }}
         ref={ref1}
@@ -123,7 +120,7 @@ const boxStyle = {
   border: "1px solid black",
   display: "flex",
   padding: "20px 10px",
-  height: "100px"
+  height: "100px",
 };
 /**
  * The draggable box's code
@@ -134,7 +131,14 @@ const boxStyle = {
  *         any boxId
  * @return div conaining the box
  */
-const Box = ({ text, addArrow, setArrows, boxId, completionLevel }) => {
+interface boxInt {
+  text: any;
+  addArrow: any;
+  setArrows: any;
+  boxId: string;
+  completionLevel: number;
+}
+const Box = ({ text, addArrow, setArrows, boxId, completionLevel }: boxInt) => {
   const dragRef: React.MutableRefObject<undefined> = useRef();
   const boxRef: React.MutableRefObject<undefined> = useRef();
   return (
@@ -178,22 +182,25 @@ export default function XarrowComponent() {
   const addArrow = ({ start, end }: { start: string; end: string }) => {
     setArrows([...arrows, { start, end }]);
   };
-  const removeArrow = ({ start, end }) => {
+  /* const removeArrow = ({ start, end }) => {
     const deleteArrowArray = arrows;
     const deleteArrow = deleteArrowArray.filter(
       (items) => items.start === start && items.end === end
     );
 
     console.log(deleteArrow);
-  };
-
+  };*/
+  interface arrInt {
+    start: string;
+    end: string;
+  }
   return (
     <div
       className="zoom"
       style={{
         display: "flex",
         justifyContent: "space-evenly",
-        height: 700
+        height: 700,
       }}
     >
       {/* map the data */}
@@ -206,7 +213,7 @@ export default function XarrowComponent() {
         />
       ))}
 
-      {arrows.map((ar) => (
+      {arrows.map((ar: arrInt) => (
         <Xarrow
           path={arrowsPath.Smooth}
           start={ar.start}
