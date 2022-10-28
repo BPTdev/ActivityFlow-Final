@@ -150,7 +150,7 @@ const Box = ({
   boxId,
   completionLevel,
   color,
-}: boxInt) => {
+ }: boxInt) => {
   const dragRef: React.MutableRefObject<undefined> = useRef();
   const boxRef: React.MutableRefObject<undefined> = useRef();
   return (
@@ -195,14 +195,7 @@ export default function XarrowComponent() {
   const addArrow = ({ start, end }: { start: string; end: string }) => {
     setArrows([...arrows, { start, end }]);
   };
-  /* const removeArrow = ({ start, end }) => {
-    const deleteArrowArray = arrows;
-    const deleteArrow = deleteArrowArray.filter(
-      (items) => items.start === start && items.end === end
-    );
 
-    console.log(deleteArrow);
-  };*/
   interface arrInt {
     start: string;
     end: string;
@@ -236,7 +229,6 @@ export default function XarrowComponent() {
           labels={""}
         />
       ))}
-      {/*<button onclick={removeArrow(2, 1)}>sdfsdf</button>*/}
     </div>
   );
 }
