@@ -88,8 +88,10 @@ const ConnectPointsWrapper = ({
           e.dataTransfer.setData("arrow", boxId);
         }}
         onDrag={(e) => {
-          const { offsetTop, offsetLeft }: { offsetLeft: any; offsetTop: any } =
-            boxRef.current;
+          const {
+            offsetTop,
+            offsetLeft,
+          }: { offsetLeft: number; offsetTop: number } = boxRef.current;
           let dragRefValue;
           if (dragRef.current) {
             dragRefValue = dragRef.current.state;
@@ -125,20 +127,30 @@ const boxStyle = {
 /**
  * The draggable box's code
  *
- * @params any text
+ * @params string | null | undefined text
  *         any addArrow
  *         any setArrows
  *         any boxId
+ *         completionLevel number
+ *         color string
  * @return div conaining the box
  */
 interface boxInt {
-  text: any;
+  text: string | null | undefined;
   addArrow: any;
   setArrows: any;
   boxId: string;
   completionLevel: number;
+  color: string;
 }
-const Box = ({ text, addArrow, setArrows, boxId, completionLevel }: boxInt) => {
+const Box = ({
+  text,
+  addArrow,
+  setArrows,
+  boxId,
+  completionLevel,
+  color,
+}: boxInt) => {
   const dragRef: React.MutableRefObject<undefined> = useRef();
   const boxRef: React.MutableRefObject<undefined> = useRef();
   return (
@@ -169,7 +181,7 @@ const Box = ({ text, addArrow, setArrows, boxId, completionLevel }: boxInt) => {
         <div className="progressbar-container">
           <div
             className="progressbar-bar"
-            style={{ width: completionLevel + "%", color: "blue" }}
+            style={{ width: completionLevel + "%", backgroundColor: color }}
           ></div>
         </div>
       </div>
@@ -210,6 +222,7 @@ export default function XarrowComponent() {
           {...{ addArrow, setArrows }}
           boxId={"" + id.id}
           completionLevel={id.completionLevel}
+          color={id.color}
         />
       ))}
 
