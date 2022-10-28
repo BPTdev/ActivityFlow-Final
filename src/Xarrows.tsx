@@ -164,7 +164,7 @@ const Box = ({
       <div
         id={boxId}
         ref={boxRef}
-        style={boxStyle}
+        style={{ backgroundColor: color, ...boxStyle }}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
           if (e.dataTransfer.getData("arrow") === boxId) {
@@ -178,10 +178,11 @@ const Box = ({
       >
         {text}
         <ConnectPointsWrapper {...{ boxId, dragRef, boxRef }} />
-        <div className="progressbar-container">
+        <div className="progressbar-container"
+        style={{backgroundColor:"white"}}>
           <div
             className="progressbar-bar"
-            style={{ width: completionLevel + "%", backgroundColor: color }}
+            style={{ width: completionLevel + "%" }}
           ></div>
         </div>
       </div>
